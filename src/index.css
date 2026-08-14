@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bangers&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --night: 240 33% 7%;          /* #0c0c1c 深夜纽约 */
+    --night-2: 240 28% 11%;       /* 楼层亮面 */
+    --ink: 240 20% 4%;            /* 漫画黑墨 */
+    --paper: 39 33% 94%;          /* 漫画纸 #f3ede0 */
+    --paper-dim: 38 18% 82%;
+    --spidey: 4 80% 56%;          /* 蜘蛛红 #e8292e 系 */
+    --ember: 32 96% 55%;          /* 琥珀渐变尾 */
+    --crimson: 342 78% 53%;       /* 深绯 */
+    --miles: 322 100% 50%;        /* 平行宇宙品红 */
+    --electric: 199 98% 55%;      /* 电光蓝(仅用于点缀) */
+
+    --background: var(--night);
+    --foreground: var(--paper);
+    --card: var(--night-2);
+    --card-foreground: var(--paper);
+    --popover: var(--night-2);
+    --popover-foreground: var(--paper);
+    --primary: var(--spidey);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--night-2);
+    --secondary-foreground: var(--paper);
+    --muted: 240 15% 18%;
+    --muted-foreground: 38 10% 62%;
+    --accent: var(--spidey);
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 12% 22%;
+    --input: 240 12% 22%;
+    --ring: var(--spidey);
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply text-foreground;
+    background-color: hsl(var(--night));
+    font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection { background: hsl(var(--spidey)); color: #fff; }
+}
+
+/* ---------- 字体系统:拉丁展示体 + 中文黑体,上下堆叠 ---------- */
+.font-display {
+  font-family: 'Bangers', 'Archivo Black', 'Impact', 'PingFang SC', 'Noto Sans SC', sans-serif;
+  letter-spacing: 0.04em;
+}
+.font-black-latin {
+  font-family: 'Archivo Black', 'Impact', 'PingFang SC', 'Noto Sans SC', sans-serif;
+}
+.en-over {
+  font-family: 'Archivo Black', 'Impact', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.68rem;
+  color: hsl(var(--spidey));
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- 材质:纸面网点 / 夜空渐晕 ---------- */
+.halftone {
+  background-image: radial-gradient(hsla(240,20%,4%,0.16) 1px, transparent 1.6px);
+  background-size: 9px 9px;
+}
+.halftone-dark {
+  background-image: radial-gradient(hsla(39,33%,94%,0.07) 1px, transparent 1.6px);
+  background-size: 10px 10px;
+}
+.vignette {
+  background: radial-gradient(84% 84% at 50% 12%, rgba(12,12,28,0) 28%, rgba(12,12,28,0.62) 74%, #0c0c1c 98%);
+}
+.night-city {
+  background:
+    radial-gradient(90% 60% at 50% -10%, rgba(232,41,46,0.14), transparent 60%),
+    radial-gradient(70% 50% at 85% 110%, rgba(25,90,190,0.16), transparent 65%),
+    hsl(var(--night));
+}
+
+/* ---------- 漫画分格:墨线 + 错位投影 + 交替圆角 ---------- */
+.panel {
+  position: relative;
+  border: 3px solid hsl(var(--ink));
+  box-shadow: 6px 6px 0 hsl(var(--ink));
+  background: hsl(var(--paper));
+  color: hsl(var(--ink));
+}
+.panel-dark {
+  border: 3px solid hsl(var(--ink));
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.55);
+  background: hsl(var(--night-2));
+  color: hsl(var(--paper));
+}
+.panel-pop { transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s; }
+.panel-pop:hover { transform: translate(-2px,-2px); box-shadow: 9px 9px 0 hsl(var(--ink)); }
+.corner-alt-a { border-radius: 1.4rem 0.2rem 1.4rem 0.2rem; }
+.corner-alt-b { border-radius: 0.2rem 1.4rem 0.2rem 1.4rem; }
+
+/* ---------- 漫画爆破星形对话标 ---------- */
+.burst {
+  clip-path: polygon(50% 0%,61% 12%,74% 4%,78% 18%,93% 14%,90% 29%,100% 36%,92% 46%,100% 58%,89% 62%,91% 77%,77% 74%,72% 89%,59% 81%,50% 93%,41% 81%,28% 89%,23% 74%,9% 77%,11% 62%,0% 58%,8% 46%,0% 36%,10% 29%,7% 14%,22% 18%,26% 4%,39% 12%);
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, hsl(var(--spidey)), hsl(var(--ember)));
+  color: #fff;
+  text-shadow: 2px 2px 0 hsl(var(--ink));
+}
+
+/* ---------- 渐变描边按钮(参考:pill + 渐变边框) ---------- */
+.btn-web {
+  position: relative;
+  border-radius: 999px;
+  padding: 2px;
+  background: linear-gradient(100deg, hsl(var(--spidey)), hsl(var(--ember)));
+  display: inline-block;
+  transition: transform .15s ease-out;
+}
+.btn-web > span {
+  display: flex; align-items: center; gap: .5rem;
+  border-radius: 999px;
+  background: hsl(var(--night));
+  color: hsl(var(--paper));
+  padding: .68rem 1.4rem;
+  font-weight: 700;
+  transition: background .15s ease-out, color .15s;
+}
+.btn-web:hover > span { background: transparent; color: #fff; }
+.btn-web:active { transform: scale(.97); }
+
+/* ---------- 下划线生长 hover(参考:scaleX 0→1, origin 左下) ---------- */
+.u-grow { position: relative; }
+.u-grow::after {
+  content: ''; position: absolute; left: 0; bottom: -4px;
+  height: 3px; width: 100%;
+  background: hsl(var(--spidey));
+  transform: scaleX(0); transform-origin: bottom left;
+  transition: transform .22s cubic-bezier(.19,1,.22,1);
+}
+.u-grow:hover::after, .u-grow.active::after { transform: scaleX(1); }
+
+/* ---------- 跑马灯带 ---------- */
+.marquee-band {
+  background: hsl(var(--spidey));
+  color: #fff;
+  border-top: 3px solid hsl(var(--ink));
+  border-bottom: 3px solid hsl(var(--ink));
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-inner {
+  display: inline-flex; gap: 2.5rem; align-items: center;
+  padding: .55rem 0;
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ---------- 掉落式入场(参考:rotate 5→-5→0) ---------- */
+@keyframes drop-in {
+  0% { opacity: 0; transform: translateY(-46px) rotate(5deg); }
+  55% { opacity: 1; transform: translateY(6px) rotate(-3deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+.drop-in { animation: drop-in .7s cubic-bezier(.34,1.4,.64,1) both; }
+
+/* ---------- 蛛网摆动 ---------- */
+@keyframes sway { 0%,100% { transform: rotate(4deg); } 50% { transform: rotate(-4deg); } }
+.swing { transform-origin: top center; animation: sway 4.5s ease-in-out infinite; }
+
+/* ---------- 剧透闸门 ---------- */
+.spoiler-veil { position: relative; }
+.spoiler-veil.locked .spoiler-body {
+  filter: blur(14px) saturate(.4);
+  pointer-events: none; user-select: none;
+  transition: filter .35s;
+}
+.spoiler-veil .spoiler-body { transition: filter .35s; }
+
+/* ---------- 时间线横滚 ---------- */
+.tl-scroll {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tl-scroll::-webkit-scrollbar { display: none; }
+.tl-item { scroll-snap-align: center; }
+
+/* ---------- 角色卡翻转 ---------- */
+.flip { perspective: 1200px; }
+.flip-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.19,1,.22,1);
+}
+.flip.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip-back { transform: rotateY(180deg); }
+
+/* ---------- 文字描边 ---------- */
+.text-stroke {
+  -webkit-text-stroke: 2px hsl(var(--paper));
+  color: transparent;
+}
+.text-stroke-ink {
+  -webkit-text-stroke: 2px hsl(var(--ink));
+  color: transparent;
+}
+
+/* ---------- reveal 初始态(GSAP 接管) ---------- */
+.reveal { opacity: 0; }
+.no-anim .reveal { opacity: 1; }
+
+/* ---------- 手机端细节 ---------- */
+@media (max-width: 640px) {
+  .panel, .panel-dark { box-shadow: 4px 4px 0 hsl(var(--ink)); }
+}
