@@ -7,13 +7,15 @@ import { FILMS } from '@/data/films'
 gsap.registerPlugin(ScrollTrigger)
 
 const NAV = [
+  { href: '#chain', label: '核心脉络' },
   { href: '#paths', label: '观影路线' },
-  { href: '#timeline', label: '全系列时间线' },
-  { href: '#eras', label: '历代蜘蛛侠' },
-  { href: '#universes', label: '宇宙关系' },
-  { href: '#recap', label: '英雄无归速通' },
+  { href: '#timeline', label: '时间线' },
+  { href: '#storyline', label: '剧情全梳理' },
+  { href: '#mindmap', label: '思维导图' },
+  { href: '#threads', label: '伏笔墙' },
   { href: '#bnd', label: '崭新之日' },
   { href: '#characters', label: '角色图鉴' },
+  { href: '#lore', label: '设定百科' },
   { href: '#quiz', label: '蜘蛛感应' },
 ]
 

@@ -1,8 +1,11 @@
 import { SiteNav, Hero, Footer } from '@/sections/Chrome'
 import { Paths } from '@/sections/Paths'
 import { Timeline } from '@/sections/Timeline'
+import { Chain, Storyline } from '@/sections/Storyline'
+import { MindMap } from '@/sections/MindMap'
+import { Threads, Lore } from '@/sections/Threads'
 import { Eras, Universes } from '@/sections/Eras'
-import { Recap, BrandNewDay } from '@/sections/RecapBND'
+import { BrandNewDay } from '@/sections/RecapBND'
 import { Characters, Comics, Quiz, Faq } from '@/sections/Misc'
 
 export default function Home() {
@@ -11,13 +14,17 @@ export default function Home() {
       <SiteNav />
       <main>
         <Hero />
+        <Chain />
         <Paths />
         <Timeline />
+        <Storyline />
+        <MindMap />
+        <Threads />
         <Eras />
         <Universes />
-        <Recap />
         <BrandNewDay />
         <Characters />
+        <Lore />
         <Comics />
         <Quiz />
         <Faq />
