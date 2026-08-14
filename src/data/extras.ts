@@ -6,6 +6,7 @@ export interface EraProfile {
   key: string
   actor: string
   actorCN: string
+  img?: string
   period: string
   films: string
   tone: string
@@ -20,7 +21,7 @@ export interface EraProfile {
 
 export const ERA_PROFILES: EraProfile[] = [
   {
-    key: 'tobey', actor: 'Tobey Maguire', actorCN: '托比·马奎尔',
+    key: 'tobey', img: 'maguire', actor: 'Tobey Maguire', actorCN: '托比·马奎尔',
     period: '2002–2007', films: '《蜘蛛侠》三部曲(山姆·雷米)',
     tone: '漫画黄金年代的正剧感:质朴、悲情、把「责任」刻进骨头里',
     suit: '自制红白蓝战衣,拉尔夫式摔跤服起家',
@@ -32,7 +33,7 @@ export const ERA_PROFILES: EraProfile[] = [
     color: '#e8292e',
   },
   {
-    key: 'andrew', actor: 'Andrew Garfield', actorCN: '安德鲁·加菲尔德',
+    key: 'andrew', img: 'garfield', actor: 'Andrew Garfield', actorCN: '安德鲁·加菲尔德',
     period: '2012–2014', films: '《超凡蜘蛛侠》两部曲(马克·韦布)',
     tone: '更街头、更忧郁的独立电影气质,滑板少年的孤独与愤怒',
     suit: '自制 + 改造的紧身战衣,质感偏运动装备',
@@ -44,7 +45,7 @@ export const ERA_PROFILES: EraProfile[] = [
     color: '#f59a2e',
   },
   {
-    key: 'tom', actor: 'Tom Holland', actorCN: '汤姆·赫兰德',
+    key: 'tom', img: 'holland', actor: 'Tom Holland', actorCN: '汤姆·赫兰德',
     period: '2016–至今', films: 'MCU 三部曲 +《崭新之日》,复联客串 3 部',
     tone: '青春校园喜剧 × 宇宙级事件,在钢铁侠阴影下长大的邻家英雄',
     suit: '斯塔克科技战衣(人工智能、滑翔翼、一击必杀模式),如今回归自制',
@@ -56,7 +57,7 @@ export const ERA_PROFILES: EraProfile[] = [
     color: '#d42a55',
   },
   {
-    key: 'miles', actor: 'Shameik Moore(配音)', actorCN: '迈尔斯·莫拉莱斯(动画)',
+    key: 'miles', img: 'moore', actor: 'Shameik Moore(配音)', actorCN: '迈尔斯·莫拉莱斯(动画)',
     period: '2018–至今', films: '《平行宇宙》《纵横宇宙》,终章 2027 年见',
     tone: '街头涂鸦 × 漫画分镜的视觉革命,非裔拉丁混血少年的自我认同',
     suit: '涂鸦改造的黑红战衣',
@@ -69,57 +70,69 @@ export const ERA_PROFILES: EraProfile[] = [
   },
 ]
 
-// ── 角色图鉴 ──
+// ── 角色图鉴(认脸墙:演员肖像来自 Wikimedia Commons,CC 授权) ──
 export interface Character {
   name: string
   en: string
   side: 'hero' | 'ally' | 'villain'
   tag: string
+  actor?: string   // 扮演者/配音
+  img?: string     // 照片路径(public/cast)
+  bnd?: boolean    // 确认出演《崭新之日》
   bio: string
   back: string // 翻面:冷知识/近况
 }
 
 export const CHARACTERS: Character[] = [
-  { name: '彼得·帕克', en: 'PETER PARKER', side: 'hero', tag: '蜘蛛侠本体',
+  { name: '彼得·帕克', en: 'PETER PARKER', side: 'hero', tag: '蜘蛛侠本体', actor: '汤姆·赫兰德 饰', img: 'holland', bnd: true,
     bio: '皇后区高中生,被放射性(或基因改造)蜘蛛咬伤后获得力量、速度、爬墙与「蜘蛛感应」。三代电影三种性格,但内核不变:越是失去,越要站起来。',
-    back: '漫画首登场于 1962 年《Amazing Fantasy》第 15 期,由斯坦·李与史蒂夫·迪特科联合创造。' },
-  { name: 'MJ / 米歇尔·琼斯', en: 'MICHELLE JONES-WATSON', side: 'ally', tag: 'MCU 女主',
+    back: '漫画首登场于 1962 年《Amazing Fantasy》第 15 期。照片为 MCU 现任彼得;另两代扮演者见「历代蜘蛛侠」区。' },
+  { name: 'MJ / 米歇尔·琼斯', en: 'MICHELLE JONES-WATSON', side: 'ally', tag: 'MCU 女主', actor: '赞达亚 饰', img: 'zendaya', bnd: true,
     bio: '赞达亚饰演的毒舌学霸,名字首字母致敬漫画中的玛丽·简。与彼得相恋后,因遗忘咒不再记得他。',
     back: '注意:她不是漫画那位玛丽·简·沃森(托比版女主),而是 MCU 原创的「同名致敬」角色。《崭新之日》中她有了新生活。' },
-  { name: '内德·利兹', en: 'NED LEEDS', side: 'ally', tag: '最佳损友',
+  { name: '内德·利兹', en: 'NED LEEDS', side: 'ally', tag: '最佳损友', actor: '雅各布·巴塔隆 饰', img: 'batalon', bnd: true,
     bio: '彼得的室友兼「椅子上的男人」(军师),第一个知道彼得秘密的好友。同样被遗忘咒抹去了与彼得的一切。',
     back: '漫画中的内德后来成为反派「恶鬼(Hobgoblin)」——电影暂未走向这条线。' },
-  { name: '梅婶', en: 'MAY PARKER', side: 'ally', tag: '精神支柱',
+  { name: '梅婶', en: 'MAY PARKER', side: 'ally', tag: '精神支柱', actor: '玛丽莎·托梅 饰(MCU)', img: 'tomei',
     bio: '三代电影三位梅婶。MCU 版(玛丽莎·托梅)在《英雄无归》中重伤临终,对彼得说出「能力越大,责任越大」。',
     back: '这句名言在漫画里最早由叙述者道出;电影则先后由本叔(2002)与梅婶(2021)亲口说出。' },
   { name: '本叔', en: 'BEN PARKER', side: 'ally', tag: '一切的原点',
     bio: '彼得的叔父,因彼得一次袖手旁观而遇害,他的死是每一代蜘蛛侠的道德原点。',
     back: 'MCU 为避免重复起源故事,从未正面呈现本叔之死——但《英雄无归》用梅婶完成了同等重量的告别。' },
-  { name: '绿魔 / 诺曼·奥斯本', en: 'GREEN GOBLIN', side: 'villain', tag: '头号宿敌',
+  { name: '绿魔 / 诺曼·奥斯本', en: 'GREEN GOBLIN', side: 'villain', tag: '头号宿敌', actor: '威廉·达福 饰', img: 'dafoe',
     bio: '奥斯本集团掌门,血清副作用催生疯狂人格。威廉·达福 2002 年的演绎成为超英反派范本,并在《英雄无归》原班回归。',
     back: '《英雄无归》里他杀死了梅婶——这让 MCU 彼得与托比版彼得共享了同一种伤痛。' },
-  { name: '章鱼博士', en: 'DOCTOR OCTOPUS', side: 'villain', tag: '最优雅的反派',
+  { name: '章鱼博士', en: 'DOCTOR OCTOPUS', side: 'villain', tag: '最优雅的反派', actor: '阿尔弗雷德·莫里纳 饰', img: 'molina',
     bio: '核物理学家奥托·奥克塔维斯,实验事故让四条机械臂与他的脊柱融合。《蜘蛛侠 2》(2004)的列车大战至今被奉为经典。',
     back: '阿尔弗雷德·莫里纳在《英雄无归》回归时距离上次出演已隔 17 年,靠数字减龄技术重返壮年。' },
-  { name: '毒液 / 艾迪·布洛克', en: 'VENOM', side: 'villain', tag: '黑暗镜像',
+  { name: '毒液 / 艾迪·布洛克', en: 'VENOM', side: 'villain', tag: '黑暗镜像', actor: '汤姆·哈迪 饰', img: 'hardy',
     bio: '外星共生体 + 失意记者的组合。2007 年首登银幕;汤姆·哈迪主演的独立系列(2018/2021/2024)构建了索尼自己的宇宙。',
     back: '《英雄无归》片尾彩蛋:艾迪被送回自己的宇宙,但一小滴共生体留在了 MCU——伏笔悬而未决。' },
-  { name: '秃鹫', en: 'VULTURE', side: 'villain', tag: '最懂彼得的敌人',
+  { name: '秃鹫', en: 'VULTURE', side: 'villain', tag: '最懂彼得的敌人', actor: '迈克尔·基顿 饰', img: 'keaton',
     bio: '艾德里安·图姆斯(迈克尔·基顿),靠回收外星垃圾发家的蓝领军火商,也是彼得暗恋对象的父亲。车里对峙戏令人窒息。',
     back: '他是少数知道彼得身份却选择守口如瓶的反派——遗忘咒后,这段恩怨已成无主的秘密。' },
-  { name: '神秘客', en: 'MYSTERIO', side: 'villain', tag: '幻象大师',
+  { name: '神秘客', en: 'MYSTERIO', side: 'villain', tag: '幻象大师', actor: '杰克·吉伦哈尔 饰', img: 'gyllenhaal',
     bio: '昆汀·贝克(杰克·吉伦哈尔),斯塔克工业前全息技术专家,用无人机+投影伪造英雄事迹,骗走了彼得的信任与「伊迪丝」眼镜。',
     back: '他死后发布的剪辑视频向全世界曝光了「彼得·帕克就是蜘蛛侠」——《英雄无归》与《崭新之日》的一切由此而起。' },
-  { name: '蝎子', en: 'SCORPION', side: 'villain', tag: '蛰伏的毒刺',
+  { name: '蝎子', en: 'SCORPION', side: 'villain', tag: '蛰伏的毒刺', actor: '迈克尔·曼多 饰', img: 'mando', bnd: true,
     bio: '麦克·加根(迈克尔·曼多),《英雄归来》中想买外星武器的罪犯,片尾在监狱向秃鹫打听蜘蛛侠身份。',
     back: '当年埋了 9 年的彩蛋,终于在《崭新之日》中回收——蝎子正式穿上战甲成为主要对手。' },
-  { name: '惩罚者', en: 'THE PUNISHER', side: 'villain', tag: '以暴制暴',
+  { name: '惩罚者', en: 'THE PUNISHER', side: 'villain', tag: '以暴制暴', actor: '乔·博恩瑟 饰', img: 'bernthal', bnd: true,
     bio: '弗兰克·卡斯特(乔·博恩瑟),家人惨死后以私刑肃清犯罪的退役特种兵,漫威最著名的反英雄,将于《崭新之日》首度登陆蜘蛛侠电影。',
     back: '他在漫画里的首次登场,正是 1974 年《The Amazing Spider-Man》第 129 期——作为蜘蛛侠的对手。' },
-  { name: '迈尔斯·莫拉莱斯', en: 'MILES MORALES', side: 'hero', tag: '小黑蛛',
+  { name: '墓碑', en: 'TOMBSTONE', side: 'villain', tag: '打不死的黑帮头目', actor: '马文·琼斯三世 饰', img: 'jones3', bnd: true,
+    bio: '朗尼·林肯,皮肤坚不可摧的街头黑帮头目。马文·琼斯三世先在动画《平行宇宙》中为其配音,再在《崭新之日》真人出演同一角色。',
+    back: '漫画初登场于 1988 年《Web of Spider-Man》第 36 期;演员本人因白化病与角色形象天然契合。' },
+  { name: '布鲁斯·班纳', en: 'BRUCE BANNER / HULK', side: 'ally', tag: '彼得的求助对象', actor: '马克·鲁法洛 饰', img: 'ruffalo', bnd: true,
+    bio: '绿巨人,复仇者联盟的伽马射线专家。官方预告显示:能力失控的彼得在《崭新之日》中向他求助——绿巨人首度加盟蜘蛛侠个人电影。',
+    back: '彼得的能力为何失控?这正是新片最大的悬念之一;找「另一位靠变异获得力量的科学家」求助,顺理成章。' },
+  { name: '萨迪·辛克(角色未公开)', en: 'SADIE SINK', side: 'ally', tag: '新片最大谜团', actor: '萨迪·辛克 饰', img: 'sink', bnd: true,
+    bio: '《怪奇物语》的麦克斯加盟《崭新之日》,角色官方严格保密。她会是谁?这是映前所有猜测的焦点。',
+    back: '本片还有特拉梅尔·提尔曼(《人生切割术》)、莉莎·科伦-扎亚斯(《熊家餐馆》)等新面孔,角色同样未公开。' },
+  { name: '迈尔斯·莫拉莱斯', en: 'MILES MORALES', side: 'hero', tag: '小黑蛛', actor: '沙梅克·摩尔 配音', img: 'moore',
     bio: '布鲁克林的非裔拉丁混血少年,动画《平行宇宙》系列主角,证明「任何人都可以戴上面具」。',
     back: '漫画初登场于 2011 年《Ultimate Fallout》第 4 期;《英雄归来》里他叔父亚伦·戴维斯已客串出场,为 MCU 版迈尔斯留门。' },
-  { name: 'J·乔纳·詹姆森', en: 'J. JONAH JAMESON', side: 'ally', tag: '跨宇宙主编',
+  { name: 'J·乔纳·詹姆森', en: 'J. JONAH JAMESON', side: 'ally', tag: '跨宇宙主编', actor: 'J·K·西蒙斯 饰', img: 'simmons',
     bio: '号角日报(在 MCU 变成自媒体)掌门人,毕生事业就是抹黑蜘蛛侠。J·K·西蒙斯在托比版与 MCU 中跨宇宙出演同一角色。',
     back: '影史罕见的「同一演员、不同宇宙、同一角色」案例;正是他在《英雄远征》片尾曝光了彼得的身份。' },
 ]

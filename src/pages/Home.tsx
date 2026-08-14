@@ -2,6 +2,7 @@ import { SiteNav, Hero, Footer } from '@/sections/Chrome'
 import { Paths } from '@/sections/Paths'
 import { Timeline } from '@/sections/Timeline'
 import { Chain, Storyline } from '@/sections/Storyline'
+import { Stories } from '@/sections/Stories'
 import { MindMap } from '@/sections/MindMap'
 import { Threads, Lore } from '@/sections/Threads'
 import { Eras, Universes } from '@/sections/Eras'
@@ -18,6 +19,7 @@ export default function Home() {
         <Paths />
         <Timeline />
         <Storyline />
+        <Stories />
         <MindMap />
         <Threads />
         <Eras />

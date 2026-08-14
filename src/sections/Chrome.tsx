@@ -11,10 +11,11 @@ const NAV = [
   { href: '#paths', label: '观影路线' },
   { href: '#timeline', label: '时间线' },
   { href: '#storyline', label: '剧情全梳理' },
+  { href: '#stories', label: '编年史' },
   { href: '#mindmap', label: '思维导图' },
   { href: '#threads', label: '伏笔墙' },
   { href: '#bnd', label: '崭新之日' },
-  { href: '#characters', label: '角色图鉴' },
+  { href: '#characters', label: '认脸墙' },
   { href: '#lore', label: '设定百科' },
   { href: '#quiz', label: '蜘蛛感应' },
 ]

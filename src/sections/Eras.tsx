@@ -28,7 +28,11 @@ export function Eras() {
         <div className="panel corner-alt-a halftone overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* 左侧代号块 */}
-            <div className="md:w-64 shrink-0 p-6 flex md:flex-col justify-between items-start text-white" style={{ background: p.color }}>
+            <div className="md:w-64 shrink-0 p-6 flex md:flex-col gap-4 justify-between items-start text-white" style={{ background: p.color }}>
+              {p.img && (
+                <img src={`cast/${p.img}.jpg`} alt={p.actorCN} loading="lazy"
+                  className="w-16 h-16 md:w-24 md:h-24 object-cover object-top border-[3px] border-[hsl(var(--ink))] shadow-[4px_4px_0_rgba(0,0,0,.45)] bg-white" />
+              )}
               <div>
                 <p className="font-display text-sm tracking-widest opacity-90">{p.actor.toUpperCase()}</p>
                 <p className="font-black text-3xl leading-tight" style={{ textShadow: '2px 2px 0 hsl(var(--ink))' }}>{p.actorCN}</p>

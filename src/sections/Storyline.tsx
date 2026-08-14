@@ -56,7 +56,22 @@ export function Storyline() {
         </p>
 
         <div className={`spoiler-veil ${unlocked ? '' : 'locked'}`}>
-          <div className="spoiler-body space-y-4">
+          {!unlocked && (
+            <div className="panel corner-alt-b halftone p-6 md:p-8 text-center max-w-md mx-auto mb-6 relative z-10">
+              <div className="burst w-20 h-20 mx-auto font-display text-xl rotate-[-8deg]">剧透<br />警告</div>
+              <p className="mt-4 font-black text-xl">前方是 2016–2021 全部主线剧透</p>
+              <p className="mt-2 text-sm opacity-75 leading-relaxed">
+                这里是「不补片也能懂」的完整剧情梳理。想保留初见惊喜,请先去补片;想一次看懂,直接解锁。
+              </p>
+              <div className="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
+                <button onClick={() => setUnlocked(true)} className="btn-web"><span>我要全看懂,解锁</span></button>
+                <a href="#paths" className="px-5 py-3 border-[3px] border-[hsl(var(--ink))] font-black bg-white hover:bg-[hsl(var(--paper-dim))] transition-colors text-sm">
+                  先去看片 →
+                </a>
+              </div>
+            </div>
+          )}
+          <div className="spoiler-body space-y-4" style={unlocked ? undefined : { maxHeight: 380, overflow: 'hidden', maskImage: 'linear-gradient(180deg,#000 20%,transparent)', WebkitMaskImage: 'linear-gradient(180deg,#000 20%,transparent)' }}>
             {STORYLINE.map((ch) => {
               const isOpen = open === ch.id
               return (
@@ -98,24 +113,6 @@ export function Storyline() {
               )
             })}
           </div>
-
-          {!unlocked && (
-            <div className="absolute inset-0 z-10 grid place-items-center p-4">
-              <div className="panel corner-alt-b halftone p-6 md:p-8 text-center max-w-md drop-in">
-                <div className="burst w-20 h-20 mx-auto font-display text-xl rotate-[-8deg]">剧透<br />警告</div>
-                <p className="mt-4 font-black text-xl">前方是 2016–2021 全部主线剧透</p>
-                <p className="mt-2 text-sm opacity-75 leading-relaxed">
-                  这里是「不补片也能懂」的完整剧情梳理。想保留初见惊喜,请先去补片;想一次看懂,直接解锁。
-                </p>
-                <div className="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
-                  <button onClick={() => setUnlocked(true)} className="btn-web"><span>我要全看懂,解锁</span></button>
-                  <a href="#paths" className="px-5 py-3 border-[3px] border-[hsl(var(--ink))] font-black bg-white hover:bg-[hsl(var(--paper-dim))] transition-colors text-sm">
-                    先去看片 →
-                  </a>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </section>

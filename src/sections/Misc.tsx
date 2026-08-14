@@ -8,8 +8,26 @@ const SIDE_STYLE: Record<string, { label: string; bg: string }> = {
   villain: { label: '反派', bg: 'hsl(var(--ink))' },
 }
 
+/** 无照片角色的占位:代码绘制的蜘蛛面具 */
+function MaskFallback() {
+  return (
+    <div className="w-full h-full grid place-items-center halftone" style={{ background: 'hsl(var(--paper-dim))' }}>
+      <svg viewBox="0 0 100 100" className="w-20 h-20" aria-hidden>
+        <ellipse cx="50" cy="52" rx="30" ry="36" fill="#e8292e" stroke="#0a0a12" strokeWidth="3.5" />
+        <g stroke="#0a0a12" strokeWidth="1.6" fill="none" opacity="0.8">
+          <path d="M50 16 V88 M20 52 H80 M28 30 Q50 44 72 30 M28 74 Q50 60 72 74" />
+          <path d="M35 20 Q44 40 42 84 M65 20 Q56 40 58 84" />
+        </g>
+        <path d="M24 44 Q36 34 46 44 Q38 52 24 44 Z" fill="#f3ede0" stroke="#0a0a12" strokeWidth="3" />
+        <path d="M76 44 Q64 34 54 44 Q62 52 76 44 Z" fill="#f3ede0" stroke="#0a0a12" strokeWidth="3" />
+      </svg>
+    </div>
+  )
+}
+
 export function Characters() {
   const [flipped, setFlipped] = useState<Set<number>>(new Set())
+  const [imgErr, setImgErr] = useState<Set<number>>(new Set())
   const toggle = (i: number) =>
     setFlipped((prev) => {
       const next = new Set(prev)
@@ -18,25 +36,40 @@ export function Characters() {
     })
   return (
     <section className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-      <SectionHead id="characters" en="WHO'S WHO" zh="角色图鉴 · 点卡翻面" />
+      <SectionHead id="characters" en="WHO'S WHO" zh="角色认脸墙 · 看新片不脸盲" />
+      <p className="-mt-6 mb-4 text-[hsl(var(--muted-foreground))] max-w-2xl">
+        进影院前先把脸认熟。带 <b className="text-[hsl(var(--paper))]">「2026 登场」</b>徽章的,是《崭新之日》官方确认的卡司;点卡片翻面,看冷知识。
+      </p>
+      <p className="mb-8 text-[11px] text-[hsl(var(--muted-foreground))]/70">演员肖像:Wikimedia Commons CC 授权(Gage Skidmore / David Shankbone / Justin Hoch 等摄)</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {CHARACTERS.map((c, i) => {
           const s = SIDE_STYLE[c.side]
           const isFlip = flipped.has(i)
+          const showImg = c.img && !imgErr.has(i)
           return (
             <Reveal key={c.name} delay={(i % 4) * 0.06}>
-              <button onClick={() => toggle(i)} className={`flip w-full text-left h-64 ${isFlip ? 'flipped' : ''}`} aria-label={`${c.name}卡片`}>
+              <button onClick={() => toggle(i)} className={`flip w-full text-left h-96 ${isFlip ? 'flipped' : ''}`} aria-label={`${c.name}卡片`}>
                 <div className="flip-inner">
-                  {/* 正面 */}
-                  <div className="flip-face panel corner-alt-a halftone p-4 flex flex-col">
-                    <div className="flex items-start justify-between">
-                      <span className="text-[10px] font-black tracking-widest text-white px-1.5 py-0.5 border-2 border-[hsl(var(--ink))]" style={{ background: s.bg }}>{s.label}</span>
-                      <span className="text-[10px] opacity-50 font-bold">点击翻面 ↻</span>
+                  {/* 正面:照片 + 档案 */}
+                  <div className="flip-face panel corner-alt-a halftone flex flex-col overflow-hidden">
+                    <div className="relative h-44 shrink-0 border-b-[3px] border-[hsl(var(--ink))] overflow-hidden">
+                      {showImg ? (
+                        <img src={`cast/${c.img}.jpg`} alt={c.actor || c.name} loading="lazy"
+                          onError={() => setImgErr((p) => new Set(p).add(i))}
+                          className="cast-photo w-full h-full object-cover object-top" />
+                      ) : <MaskFallback />}
+                      <span className="absolute top-2 left-2 text-[10px] font-black tracking-widest text-white px-1.5 py-0.5 border-2 border-[hsl(var(--ink))]" style={{ background: s.bg }}>{s.label}</span>
+                      {c.bnd && (
+                        <span className="absolute top-2 right-2 text-[10px] font-black tracking-widest px-1.5 py-0.5 border-2 border-[hsl(var(--ink))] text-[hsl(var(--ink))]" style={{ background: '#ffd23e' }}>2026 登场</span>
+                      )}
                     </div>
-                    <h3 className="font-black text-xl mt-2">{c.name}</h3>
-                    <p className="font-display text-xs tracking-widest opacity-55">{c.en}</p>
-                    <p className="mt-1 text-xs font-bold text-[hsl(var(--spidey))]">{c.tag}</p>
-                    <p className="mt-2 text-sm leading-relaxed opacity-85 line-clamp-4">{c.bio}</p>
+                    <div className="p-4 flex flex-col flex-1">
+                      <h3 className="font-black text-lg leading-tight">{c.name}</h3>
+                      <p className="font-display text-[11px] tracking-widest opacity-55">{c.en}</p>
+                      <p className="mt-1 text-xs font-bold text-[hsl(var(--spidey))]">{c.actor ? `${c.actor} · ` : ''}{c.tag}</p>
+                      <p className="mt-1.5 text-xs leading-relaxed opacity-80 line-clamp-3">{c.bio}</p>
+                      <span className="mt-auto pt-2 text-[10px] opacity-50 font-bold self-end">点击翻面 ↻</span>
+                    </div>
                   </div>
                   {/* 背面 */}
                   <div className="flip-face flip-back panel corner-alt-b p-4 flex flex-col" style={{ background: 'hsl(var(--night-2))', color: 'hsl(var(--paper))' }}>

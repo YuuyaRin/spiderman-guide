@@ -9,9 +9,32 @@ export function Paths() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-16 md:py-24">
       <SectionHead id="paths" en="CHOOSE YOUR PATH" zh="先选路线,再补作业" />
-      <p className="-mt-6 mb-10 text-[hsl(var(--muted-foreground))] max-w-2xl">
+      <p className="-mt-6 mb-6 text-[hsl(var(--muted-foreground))] max-w-2xl">
         不管你现在站在哪里,都有一条通往《崭新之日》的最短路径。勾选你看过的片子,进度会保存在本机。
       </p>
+
+      {/* 总备战进度 */}
+      <Reveal className="mb-10">
+        <div className="panel-dark corner-alt-b halftone-dark px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-3">
+          <span className="font-display text-sm tracking-widest text-[hsl(var(--ember))]">MY PROGRESS · 我的备战进度</span>
+          <div className="flex-1 h-4 border-2 border-[hsl(var(--ink))] bg-[hsl(var(--night))] overflow-hidden">
+            <div className="h-full transition-all duration-500"
+              style={{ width: `${Math.round((done.filter((id) => id !== 'bnd').length / (FILMS.length - 1)) * 100)}%`, background: 'linear-gradient(90deg, hsl(var(--spidey)), hsl(var(--ember)))' }} />
+          </div>
+          <span className="font-black text-sm whitespace-nowrap">
+            {done.filter((id) => id !== 'bnd').length} / {FILMS.length - 1} 部
+          </span>
+          <span className="text-xs text-[hsl(var(--muted-foreground))]">
+            {done.includes('hc') && done.includes('nwh')
+              ? '核心课程已修完,可以进场了!🎬'
+              : done.includes('nwh')
+                ? '再补一部《英雄归来》,前因更完整'
+                : done.includes('hc')
+                  ? '还差最关键的一部:《英雄无归》'
+                  : '从《英雄归来》开始,性价比最高'}
+          </span>
+        </div>
+      </Reveal>
       <div className="grid gap-6 md:grid-cols-3">
         {WATCH_PATHS.map((p, idx) => {
           const watched = p.films.filter((id) => done.includes(id)).length
